@@ -287,12 +287,24 @@ class _MultiSelectDialogFieldView<V> extends StatefulWidget {
 class __MultiSelectDialogFieldViewState<V>
     extends State<_MultiSelectDialogFieldView<V>> {
   List<V> _selectedItems = [];
+  bool initialUpdate = true;
 
   @override
   void initState() {
     super.initState();
     if (widget.initialValue != null) {
       _selectedItems.addAll(widget.initialValue!);
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant _MultiSelectDialogFieldView<V> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialValue != null &&
+        widget.initialValue!.isNotEmpty &&
+        initialUpdate) {
+      _selectedItems.addAll(widget.initialValue!);
+      initialUpdate = false;
     }
   }
 
